@@ -1,17 +1,18 @@
 const Koa = require('koa');
+const bodyParser = require('koa-bodyparser');
+const jwt = require('koa-jwt');
+
 const app = new Koa();
-
-// 获取到数据库操作相关
-const model = require('./db/model');
-
-let { UsersInfos } = model;
+app.use(bodyParser());
+require('./routes')(app);
+app.use(jwt({ secret: 'longjiale' }).unless({ path: [/^\/users\/login/, /^\/users\/register/] }));
 
 app.use(async (ctx, next) => {
-  ctx.body = `啦啦啦`;
+  ctx.body = ctx.request.body;
   await next()
 });
 
-require('./routes')(app)
 
-let port = 3000;
+
+let port = 3001;
 app.listen(port, () => console.log(`Koa start at ${port}...`));
