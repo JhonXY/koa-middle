@@ -10,8 +10,7 @@ let js_files = files.filter((f) => {
   return f.endsWith('.js')
 }, files);
 
-module.exports = {};
-
+let models = {}
 /*将各个model绑定到该文件的输出上方便调用
   model的调用对应文件名，直接引用model文件就可以使用所有的model了
  如:
@@ -23,11 +22,13 @@ for(let f of js_files){
   let name = f.substring(0, f.length -3);
   console.log('库表：' + name);
   // 将各个model绑定到这个文件输出的module.exports上
-  module.exports[name] = require(__dirname + '/models/' + f)
+  models[name] = require(__dirname + '/models/' + f)
 }
 
 // 这里的sync是Sequelize提供的一个方法
 // 同步当前实例中定义的所有模型
-module.exports.sync = () => {
+models.sync = () => {
   db.sync();
 }
+
+module.exports = models;
