@@ -23,6 +23,6 @@ const shophotelitem = db.defineModel('shophotelitem', {
 }, 
 // { underscored: true } // 可以使外键的命名由驼峰式变为shop_id的格式
 )
-shophotelitem.sync({ force: true })
+// shophotelitem.sync({ force: true })
 
 module.exports = shophotelitem

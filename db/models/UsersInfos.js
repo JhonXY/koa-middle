@@ -11,6 +11,6 @@ const usersinfo = db.defineModel('usersinfo', {
   role: db.BOOLEAN, // 用户角色0-普通用户，1-店家
 });
 
-usersinfo.sync({ force: true })
+// usersinfo.sync({ force: true })
 
 module.exports = usersinfo
