@@ -39,6 +39,7 @@ exports.login = async (ctx, next) => {
   const { userphone, password } = ctx.query
   try {
     let user = await UsersInfos.findOne({ where: { phone: userphone, password }})
+    
     let userToken = {
       name: user.nickname
     }
@@ -47,6 +48,9 @@ exports.login = async (ctx, next) => {
     ctx.body = {
       message: 'success',
       bean: { token },
+      userInfo: {
+        user
+      },
       code: 1
     }
   } catch (err) {

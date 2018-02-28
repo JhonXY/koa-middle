@@ -6,6 +6,6 @@ const shopfoodcategory = db.defineModel('shopfoodcategory', {
   intro: db.STRING // 分类简介
 })
 
-shopfoodcategory.sync({ force: true })
+// shopfoodcategory.sync({ force: true })
 
 module.exports = shopfoodcategory

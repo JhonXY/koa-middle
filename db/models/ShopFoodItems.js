@@ -10,6 +10,6 @@ const shopfooditem = db.defineModel('shopfooditem', {
   imgsrc: db.STRING // 食物图片url
 })
 
-shopfooditem.sync({ force: true })
+// shopfooditem.sync({ force: true })
 
 module.exports = shopfooditem

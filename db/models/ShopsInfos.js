@@ -11,6 +11,6 @@ const shopsinfo = db.defineModel('shopsinfo', {
   rate: db.INTEGER // 店铺评分
 })
 
-shopsinfo.sync({ force: true })
+// shopsinfo.sync({ force: true })
 
 module.exports = shopsinfo

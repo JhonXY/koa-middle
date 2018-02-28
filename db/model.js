@@ -28,6 +28,7 @@ for(let f of js_files){
 // 这里的sync是Sequelize提供的一个方法
 // 同步当前实例中定义的所有模型
 models.sync = () => {
+  console.log('同步');
   db.sync();
 }
 
