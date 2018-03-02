@@ -7,13 +7,25 @@ const models = require('./model.js');
 
 const {
   ShopHotelItems,
-  ShopsInfos
+  ShopsInfos,
+  ShopFoodItems,
+  ShopFoodCategorys,
+  UsersInfos
 } = models
 
 // 模型间的关系
 // ShopsInfos.hasMany(ShopHotelItems)
-ShopHotelItems.belongsTo(ShopsInfos, {
-  foreignKey: 'shop_id',
+ShopsInfos.belongsTo(UsersInfos, {
+  as: 'Master'
+})
+ShopsInfos.hasMany(ShopFoodCategorys,{
+  as: 'FoodCategorys'
+})
+ShopsInfos.hasMany(ShopHotelItems, {
+  as: 'HotelItems'
+})
+ShopFoodCategorys.hasMany(ShopFoodItems, {
+  as: 'FoodItems'
 })
 
 models.sync();
