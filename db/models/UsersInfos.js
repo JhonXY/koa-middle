@@ -9,7 +9,7 @@ const usersinfo = db.defineModel('usersinfo', {
   sex: db.BOOLEAN, // 用户性别0-女，1-男
   phone: db.STRING, // 用户手机号
   role: db.BOOLEAN, // 用户角色0-普通用户，1-店家
-});
+}, { underscored: true });
 
 // usersinfo.sync({ force: true })
 

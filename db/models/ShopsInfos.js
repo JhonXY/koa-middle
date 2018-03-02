@@ -9,7 +9,7 @@ const shopsinfo = db.defineModel('shopsinfo', {
   latitude: db.DECIMAL, // 店铺纬度
   tele: db.BIGINT, // 店铺电话
   rate: db.INTEGER // 店铺评分
-})
+}, { underscored: true })
 
 // shopsinfo.sync({ force: true })
 

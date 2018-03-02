@@ -100,8 +100,8 @@ var exp = {
     if (process.env.NODE_ENV !== 'production') { 
       console.log('同步');
        
-      sequelize.sync();
-      // sequelize.sync({force: true}); // 这样同步时会删除同名已有的库表
+      // sequelize.sync();
+      sequelize.sync({force: true}); // 这样同步时会删除同名已有的库表
       // sequelize.sync({force: false}); 
     } else {
       throw new Error('Cannot sync() when NODE_ENV is set to \'production\'.');
