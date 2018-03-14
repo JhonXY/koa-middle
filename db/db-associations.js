@@ -29,7 +29,7 @@ UsersInfos.hasOne(ShopsInfos, {
   as: 'Master'
 })
 
-ShopsInfos.hasMany(ShopFoodCategorys,{
+ShopsInfos.hasMany(ShopFoodCategorys, {
   as: 'FoodCategorys'
 })
 ShopsInfos.hasMany(ShopHotelItems, {
@@ -38,15 +38,3 @@ ShopsInfos.hasMany(ShopHotelItems, {
 ShopFoodCategorys.hasMany(ShopFoodItems, {
   as: 'FoodItems'
 })
-
-models.sync();
-// 使用每个model单独的sync, 控制model的生成顺序
-// models.ShopsInfos.sync();
-// models.UsersInfos.sync();
-// models.ShopHotelItems.sync();
-// models.ShopFoodCategorys.sync();
-// models.ShopFoodItems.sync();
-
-console.log('init db ok.');
-
-// process.exit(0);

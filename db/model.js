@@ -25,10 +25,21 @@ for(let f of js_files){
   models[name] = require(__dirname + '/models/' + f)
 }
 
+// 联系一定要被执行到
+const {
+  ShopHotelItems,
+  ShopsInfos,
+  ShopFoodItems,
+  ShopFoodCategorys,
+  UsersInfos
+} = models
+UsersInfos.hasOne(ShopsInfos, {
+  as: 'Master'
+})
+
 // 这里的sync是Sequelize提供的一个方法
 // 同步当前实例中定义的所有模型
 models.sync = () => {
-  console.log('同步');
   db.sync();
 }
 

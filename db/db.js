@@ -65,6 +65,8 @@ function defineModel(name, attributes){
   return sequelize.define(name, attrs, {
     // 统一timestamp机制
     timestamps: false,
+    // 外键将采用蛇型命名
+    underscored: true,
     // 每个Model必须有createdAt、updatedAt和version，
     // 分别记录创建时间、修改时间和版本号。
     hooks: {
