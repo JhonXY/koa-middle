@@ -38,8 +38,22 @@ exports.login = async (ctx, next) => {
   // url参数从上下文中的query里直接获取
   const { userphone, password } = ctx.query
   try {
+    let shop 
     let user = await UsersInfos.findOne({ where: { phone: userphone, password }})
+    console.log(user);
     
+    if(user.getMaster){
+      // 通过user设置在shop上的master外键来获取shop的信息
+      await user.getMaster().then(res => {
+        if(res){
+          let { area, name, details, rate, tele, id } = res.dataValues
+          shop = { area, name, details, rate, tele, id }
+        }
+      })
+    }
+    // user.createMaster({
+    //   longitude, latitude, tele, area, details, name, rate: 5
+    // })
     let userToken = {
       name: user.nickname
     }
@@ -51,6 +65,7 @@ exports.login = async (ctx, next) => {
       userInfo: {
         user
       },
+      shopInfo: shop || false,
       code: 1
     }
   } catch (err) {

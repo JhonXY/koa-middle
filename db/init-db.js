@@ -25,27 +25,30 @@ const {
 // })
 
 // hasOne会为源模型添加访问器方法访问被设置了外键的模型
-UsersInfos.hasOne(ShopsInfos, {
-  as: 'Master'
-})
 
-ShopsInfos.hasMany(ShopFoodCategorys,{
-  as: 'FoodCategorys'
-})
-ShopsInfos.hasMany(ShopHotelItems, {
-  as: 'HotelItems'
-})
-ShopFoodCategorys.hasMany(ShopFoodItems, {
-  as: 'FoodItems'
-})
+// ShopsInfos.hasMany(ShopHotelItems, {})
+// ShopsInfos.hasMany(ShopFoodCategorys,{
+//   as: 'FoodCategorys'
+// })
+// ShopsInfos.hasMany(ShopHotelItems, {
+//   as: 'HotelItems'
+// })
+// ShopFoodCategorys.hasMany(ShopFoodItems, {
+//   as: 'FoodItems'
+// })
+async function sync() {
+  await models.sync()
 
-models.sync();
-// 使用每个model单独的sync, 控制model的生成顺序
-// models.ShopsInfos.sync();
-// models.UsersInfos.sync();
-// models.ShopHotelItems.sync();
-// models.ShopFoodCategorys.sync();
-// models.ShopFoodItems.sync();
+  // 所有的关系操作需要等待基础表结构的构成
+  UsersInfos.hasOne(ShopsInfos, {
+    as: 'Master'
+  })
+  ShopsInfos.hasMany(ShopHotelItems, {
+    as: 'Shop'
+  })
+}
+
+sync()
 
 console.log('init db ok.');
 

@@ -20,9 +20,7 @@ const shophotelitem = db.defineModel('shophotelitem', {
   cancelDate: db.STRING, // 床位可取消时间
   equipments: db.STRING, // 设备json表
   left: db.INTEGER // 床位可供销售量
-}, 
-{ underscored: true } // 可以使外键的命名由驼峰式变为shop_id的格式
-)
+})
 // shophotelitem.sync({ force: true })
 
 module.exports = shophotelitem
