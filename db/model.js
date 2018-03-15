@@ -33,14 +33,20 @@ const {
   ShopFoodCategorys,
   UsersInfos
 } = models
+
 UsersInfos.hasOne(ShopsInfos, {
   as: 'Master'
 })
 
+ShopsInfos.hasMany(ShopHotelItems, {
+  as: 'Shop'
+})
+
+
 // 这里的sync是Sequelize提供的一个方法
 // 同步当前实例中定义的所有模型
 models.sync = () => {
-  db.sync();
+  return db.sync();
 }
 
 module.exports = models;
