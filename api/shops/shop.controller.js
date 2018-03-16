@@ -93,6 +93,30 @@ class shopController {
       ctx.throw(err)
     }
   }
+
+  async getShopsList(ctx, next){
+    try {
+      let data = await ShopsInfos.findAll()
+
+      ctx.status = 200
+      ctx.body = {
+        message: '所有店铺信息已提取',
+        data: {
+          data
+        },
+        code: 1,
+        success: true
+      }
+    } catch (err) {
+      ctx.status = 200
+      ctx.body = {
+        message: 'fail',
+        code: -1,
+        success: false
+      }
+      ctx.throw(err)
+    }
+  }
 }
 
 // export default new shopController()
