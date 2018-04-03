@@ -9,13 +9,13 @@ const app = new Koa();
 app.use(bodyParser());
 require('./routes')(app);
 
-app.use(jwt({ 
-  // 用于加密的key
-  secret: 'longjiale' 
-}).unless({ 
-  // 设置哪些api不需要token验证
-  path: [/^\/users\/login/, /^\/users\/register/] 
-}));
+// app.use(jwt({ 
+//   // 用于加密的key
+//   secret: 'longjiale' 
+// }).unless({ 
+//   // 设置哪些api不需要token验证
+//   path: [/^\/users\/login/, /^\/users\/register/] 
+// }));
 
 app.use(async (ctx, next) => {
   ctx.body = ctx.request.body;

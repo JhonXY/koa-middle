@@ -40,7 +40,6 @@ exports.login = async (ctx, next) => {
   try {
     let shop 
     let user = await UsersInfos.findOne({ where: { phone: userphone, password }})
-    console.log(user);
     
     if(user.getMaster){
       // 通过user设置在shop上的master外键来获取shop的信息
