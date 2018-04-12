@@ -30,20 +30,15 @@ class orderController {
     }
   }
 
-  // 获取账号的订单
+  // 获取账号的床位订单
   async getHotelOrder(ctx, next) {
-    console.log('getorders');
-    
     const { userId, status } = ctx.query
-
-    console.log(userId, status);
     
     try {
       let data
       status == -1 
         ? data = await HotelOrders.findAll({ where: { userId } })
         : data = await HotelOrders.findAll({ where: { userId, status } })
-      console.log(data);
       
       ctx.status = 200
       ctx.body = {

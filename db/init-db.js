@@ -46,6 +46,12 @@ async function sync() {
   ShopsInfos.hasMany(ShopHotelItems, {
     as: 'Shop'
   })
+  ShopsInfos.hasMany(ShopFoodCategorys, {
+    as: 'Menus'
+  })
+  ShopFoodCategorys.hasMany(ShopFoodItems, {
+    as: 'Products'
+  })
 }
 
 sync()
