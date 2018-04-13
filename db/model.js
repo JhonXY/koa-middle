@@ -42,7 +42,13 @@ ShopsInfos.hasMany(ShopHotelItems, {
   as: 'Shop'
 })
 
+ShopsInfos.hasMany(ShopFoodCategorys, {
+  as: 'Menus'
+})
 
+ShopFoodCategorys.hasMany(ShopFoodItems, {
+  as: 'Products'
+})
 // 这里的sync是Sequelize提供的一个方法
 // 同步当前实例中定义的所有模型
 models.sync = () => {

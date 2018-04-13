@@ -1,4 +1,12 @@
-{
+{ 
+  "name": "koaserice",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --inspect app.js",
+    "db": "node db/init-db"
+  },
   "dependencies": {
     "jsonwebtoken": "^8.1.0",
     "koa": "^2.4.1",
