@@ -1,7 +1,7 @@
 const model = require('../../db/model');
 // 用于创建jwt
 const jwt = require('jsonwebtoken')
-const { HotelOrders } = model;
+const { HotelOrders, FoodOrders } = model;
 
 class orderController {
   // 上传订单
@@ -51,6 +51,59 @@ class orderController {
       ctx.status = 200
       ctx.body = {
         message: '订单未能获取',
+        code: -1,
+        success: false
+      }
+      ctx.throw(err)
+    }
+  }
+
+  // 上传食物订单
+  async subFoodOrder(ctx, next) {
+    let data = ctx.request.body
+    
+    try {
+      await FoodOrders.create({ 
+        ...data, status: 0
+      })
+      ctx.status = 200
+      ctx.body = {
+        message: '订单已提交',
+        code: 1,
+        success: true
+      }
+    } catch (err) {
+      ctx.status = 200
+      ctx.body = {
+        message: '订单未能提交',
+        code: -1,
+        success: false
+      }
+      ctx.throw(err)
+    }
+  }
+
+  // 获取账号的食物订单
+  async getFoodOrder(ctx, next) {
+    const { userId, status } = ctx.query
+
+    try {
+      let data
+      status == -1
+        ? data = await FoodOrders.findAll({ where: { userId } })
+        : data = await FoodOrders.findAll({ where: { userId, status } })
+
+      ctx.status = 200
+      ctx.body = {
+        data,
+        message: '全部食品订单已获取',
+        code: 1,
+        success: true
+      }
+    } catch (err) {
+      ctx.status = 200
+      ctx.body = {
+        message: '食品订单未能获取',
         code: -1,
         success: false
       }
