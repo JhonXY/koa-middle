@@ -106,7 +106,7 @@ var exp = {
       sequelize.sync({ force: false }).catch(err => {
         console.log(err);
       }); // 这样同步时会删除同名已有的库表
-      // sequelize.sync({force: false}); 
+      // sequelize.sync({force: true}); 
     } else {
       throw new Error('Cannot sync() when NODE_ENV is set to \'production\'.');
     }
