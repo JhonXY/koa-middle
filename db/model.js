@@ -20,7 +20,7 @@ let models = {}
 // 不可放入任何回调中
 for(let f of js_files){
   let name = f.substring(0, f.length -3);
-  console.log('库表：' + name);
+  console.log('table: ' + name);
   // 将各个model绑定到这个文件输出的module.exports上
   models[name] = require(__dirname + '/models/' + f)
 }

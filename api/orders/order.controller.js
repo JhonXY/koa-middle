@@ -37,8 +37,14 @@ class orderController {
     try {
       let data
       status == -1 
-        ? data = await HotelOrders.findAll({ where: { userId } })
-        : data = await HotelOrders.findAll({ where: { userId, status } })
+        ? data = await HotelOrders.findAll({ 
+          where: { userId },
+          order: [['updatedAt', 'DESC']]
+        })
+        : data = await HotelOrders.findAll({ 
+          where: { userId, status },
+          order: [['updatedAt', 'DESC']]
+        })
       
       ctx.status = 200
       ctx.body = {
@@ -66,6 +72,7 @@ class orderController {
       await FoodOrders.create({ 
         ...data, status: 0
       })
+      // socket.broadcast.emit('new_user', {});
       ctx.status = 200
       ctx.body = {
         message: '订单已提交',
@@ -90,8 +97,14 @@ class orderController {
     try {
       let data
       status == -1
-        ? data = await FoodOrders.findAll({ where: { userId } })
-        : data = await FoodOrders.findAll({ where: { userId, status } })
+        ? data = await FoodOrders.findAll({ 
+          where: { userId },
+          order: [['updatedAt', 'DESC']]
+        })
+        : data = await FoodOrders.findAll({ 
+          where: { userId, status },
+          order: [['updatedAt', 'DESC']]
+        })
 
       ctx.status = 200
       ctx.body = {
@@ -110,6 +123,50 @@ class orderController {
       ctx.throw(err)
     }
   }
+
+  async getAllOrder(ctx, next) {
+    const { shopId, status } = ctx.query
+
+    try {
+      let data1, data2
+      if (status == -1) {
+        data1 = await FoodOrders.findAll({
+          where: { shopId },
+          order: [['updatedAt', 'DESC']]
+        })
+        data2 = await HotelOrders.findAll({
+          where: { shopId },
+          order: [['updatedAt', 'DESC']]
+        })
+      } else {
+        data1 = await FoodOrders.findAll({
+          where: { shopId, status },
+          order: [['updatedAt', 'DESC']]
+        })
+        data2 = await HotelOrders.findAll({
+          where: { shopId, status },
+          order: [['updatedAt', 'DESC']]
+        })
+      }
+
+      ctx.status = 200
+      ctx.body = {
+        data: {...data1, ...data2},
+        message: '当前店铺全部订单已获取',
+        code: 1,
+        success: true
+      }
+    } catch (err) {
+      ctx.status = 200
+      ctx.body = {
+        message: '订单未能获取',
+        code: -1,
+        success: false
+      }
+      ctx.throw(err)
+    }
+  }
+
 }
 
 module.exports = new orderController();

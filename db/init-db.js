@@ -1,10 +1,10 @@
-const models = require('./model.js');
+const models = require('./model.js')
 
 // 调用的是db中暴露的exp的sync方法
 // 同步所有model到数据库
 // 方便批量修改model的同步
 // 但存在一个同步顺序问题，使得无法设置外键，弃用
-
+// 该文件用于重构数据表
 const {
   ShopHotelItems,
   ShopsInfos,
@@ -25,18 +25,7 @@ const {
 // })
 
 // hasOne会为源模型添加访问器方法访问被设置了外键的模型
-
-// ShopsInfos.hasMany(ShopHotelItems, {})
-// ShopsInfos.hasMany(ShopFoodCategorys,{
-//   as: 'FoodCategorys'
-// })
-// ShopsInfos.hasMany(ShopHotelItems, {
-//   as: 'HotelItems'
-// })
-// ShopFoodCategorys.hasMany(ShopFoodItems, {
-//   as: 'FoodItems'
-// })
-async function sync() {
+async function init() {
   await models.sync()
 
   // 所有的关系操作需要等待基础表结构的构成
@@ -54,8 +43,7 @@ async function sync() {
   })
 }
 
-sync()
+init()
 
 console.log('init db ok.');
-
 // process.exit(0);
