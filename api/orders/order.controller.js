@@ -148,10 +148,10 @@ class orderController {
           order: [['updatedAt', 'DESC']]
         })
       }
-
+      
       ctx.status = 200
       ctx.body = {
-        data: {...data1, ...data2},
+        data: [...data1, ...data2],
         message: '当前店铺全部订单已获取',
         code: 1,
         success: true

@@ -49,7 +49,7 @@ class shopController {
 
     try {
       let shop = await ShopsInfos.findOne({ where: { id: shopId } })
-      shop.createShop({
+      await shop.createShop({
         name, intro, breakfast, price, cancel, cancelDate, equipments: equip, left
       })
       
