@@ -47,7 +47,6 @@ exports.hasShop = async (ctx, next) => {
   try {
     let shop = await ShopsInfos.findOne({ where: { master_id: id } })
     ctx.status = 200
-    console.log(shop);
     
     if(shop){
       ctx.body = {
@@ -85,6 +84,19 @@ exports.login = async (ctx, next) => {
           shop = { area, name, details, rate, tele, id }
         }
       })
+    }
+
+    // 如果是后台登录做socket
+    console.log(ctx.query);
+    
+    if ('backend' in ctx.query) {
+      // socket.on('user_login', function (info) {
+      //   const { tokenId, userId, socketId } = info;
+      //   addSocketId(users, { tokenId, socketId, userId });
+      // });
+      // to 代表往指定id的socket连接推送
+      // ctx.socket.socket.to(user.id).emit('login', user.id);
+      // ctx.socket.broadcast.emit('login', user.id);
     }
     // user.createMaster({
     //   longitude, latitude, tele, area, details, name, rate: 5

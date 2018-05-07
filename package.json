@@ -1,4 +1,4 @@
-{ 
+{
   "name": "koaserice",
   "version": "0.1.0",
   "private": true,
@@ -13,6 +13,7 @@
     "koa-bodyparser": "^4.2.0",
     "koa-jwt": "^3.2.2",
     "koa-router": "^7.3.0",
+    "koa-socket": "^4.4.0",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.1",
     "node-uuid": "^1.4.8",
