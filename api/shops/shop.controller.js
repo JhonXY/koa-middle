@@ -12,13 +12,21 @@ class shopController {
       // 因为外键的原因，需要先找到外键的主人
       let user = await UsersInfos.findOne({ where: { id: MasterId } })
       // 通过该关系注入的方法来创建新数据
-      user.createMaster({
+      await user.createMaster({
         longitude, latitude, tele, area, details, name, rate: 5
+      })
+      let newShop
+      await user.getMaster().then(res => {
+        if(res){
+          let { area, name, details, rate, tele, id } = res.dataValues
+          newShop = { area, name, details, rate, tele, id }
+        }
       })
       ctx.status = 200
       ctx.body = {
         message: '店铺信息已提交',
         code: 1,
+        shop: newShop,
         success: true
       }
     } catch (err) {
