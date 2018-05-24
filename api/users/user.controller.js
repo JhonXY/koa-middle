@@ -152,3 +152,22 @@ exports.alipay = async (ctx, next) => {
     }
   })
 }
+
+exports.changePassword = async (ctx, next) => {
+  let { id, newpass } = ctx.request.body;
+  try {
+    await UsersInfos.update({password: newpass},{ where: { id: id } })
+    ctx.status = 200
+    ctx.body = {
+      message: '密码成功修改',
+      code: 1
+    }
+  } catch (err) {
+    ctx.status = 200
+    ctx.body = {
+      message: 'fail',
+      code: -1
+    }
+    ctx.throw(err)
+  }
+}

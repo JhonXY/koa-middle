@@ -89,7 +89,7 @@ class shopController {
       ctx.body = {
         message: '店铺床位已提取',
         data: {
-          data
+          data, shop
         },
         code: 1,
         success: true
@@ -169,6 +169,63 @@ class shopController {
       ctx.status = 200
       ctx.body = {
         message: '菜品信息已提交',
+        code: 1,
+        success: true
+      }
+    } catch (err) {
+      ctx.status = 200
+      ctx.body = {
+        message: 'fail',
+        code: -1,
+        success: false
+      }
+      ctx.throw(err)
+    }
+  }
+
+  async changeFoodItem(ctx, next){
+    try {
+      let { shopId, name, price, foodintro, tags, imgdata, unit, category, itemId } = ctx.request.body
+      
+      let tips = tags.reduce((pre, cur, i) => {
+        return i === 0 
+                ? `${cur.toString()}`
+                :`${pre.toString()} ${cur.toString()}`
+      }, '')
+
+      // 查找是否有该分类
+      let hasCate = await ShopFoodCategorys.findOne({
+        where: {name: category}
+      })
+     
+      // 获取当前店铺
+      let shop = await ShopsInfos.findOne({ where: { id: shopId } })
+
+      // 通过该关系注入的方法来创建新数据
+      if (hasCate !== null) {
+        // 已有的分类
+        // 则可以直接修改信息
+        // await hasCate.createProduct({
+        //   name, price, introduction, tips, imgdata, unit, category, shopId
+        // })
+        await ShopFoodItems.update({
+          name, price, introduction: foodintro, tips, imgdata, unit, category,
+        },{ where: {id: itemId}})
+      } else {
+        // 新的分类
+        let newMenu = await shop.createMenu({
+          name: category
+        })
+        // 先删除原先的
+        await ShopFoodItems.destroy({ where: {id: itemId}})
+        // 直接创建一个新的
+        newMenu.createProduct({
+          name, price, introduction: foodintro, tips, imgdata, unit, category, shopId
+        })
+      }
+      ctx.status = 200
+      ctx.body = {
+        message: '菜品信息已修改',
         code: 1,
         success: true
       }
